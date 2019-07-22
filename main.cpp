@@ -26,7 +26,7 @@ class Bar
 {
 public:
     char name[64];
-    void useName(){name;};
+    void useName(){name;}
     mat4x4 matrix{};
 };
 
@@ -40,7 +40,7 @@ class Foo1 : public Parent
 {
 public:
     int x{};
-    char name[88];
+    //    char name[88];
     int y{};
     float nonsence[67];
     Vec3 z{1.f,2.f,3.f};
@@ -193,13 +193,13 @@ int main()
     //    for (int i{0}; i < rounds; i++) {
     //        timeTotalStack += doTheStackWork(mArraySize);
     //    }
-    //    cout << "Stack " << timeTotalStack / rounds << " s" << endl;
+    //    cout << "Stack " << timeTotalStack / rounds * 100 << " ms" << endl;
 
     //All objects on heap
     for (int i{0}; i < rounds; i++) {
         timeTotalHeap += doTheHeapWork(mArraySize);
     }
-    cout << "Array on Heap " << timeTotalHeap / rounds  * 100<< " ms" << endl;
+    cout << "Array on Heap " << timeTotalHeap / rounds * 100 << " ms" << endl;
 
     //    cout << "Stack / Heap: " << timeTotalStack/timeTotalHeap << endl;
     //    cout << "Heap is " << timeTotalHeap/timeTotalStack << " slower than stack" << endl;
@@ -287,19 +287,20 @@ int main()
     cout << "Iterate the original array and copy " << timeAddedCopy / rounds * 100 << " ms" << endl;
     cout << "Added copy is " << timeAddedCopy/timeTotalHeap << " slower than just iterating" << endl;
 
-
     auto start2 = std::chrono::high_resolution_clock::now();
-    for(unsigned int i{0}; i <  mArraySize/100; i++)
+    for (int var = 0; var < rounds; ++var)
     {
-        fastArray[i].x += i;
-        fastArray[i].y += i;
-        fastArray[i].z.x += 3;
+        for(unsigned int i{0}; i <  mArraySize/100; i++)
+        {
+            fastArray[i].x += i;
+            fastArray[i].y += i;
+            fastArray[i].z.x += 3;
+        }
     }
     auto end2 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float> duration2 = end2 - start2;
+    std::chrono::duration<double> duration2 = end2 - start2;
 
-
-    cout << "Iterate the Stripped array with add " << duration2.count()*100 << " ms" << endl;
+    cout << "Iterate the Stripped array with add " << duration2.count()*100 / rounds << " ms" << endl;
 
     delete[] mArrayPtr;
     delete[] fastArray;
