@@ -5,6 +5,8 @@
 #include <list>
 #include <array>
 
+#include "tests.h"
+
 #define LENGHT 500000
 #define ROUNDS 100
 
@@ -33,7 +35,8 @@ public:
 class Parent
 {
 public:
-    virtual void print() {};
+    virtual ~Parent();
+    virtual void print() {}
 };
 
 class Foo1 : public Parent
@@ -46,7 +49,7 @@ public:
     Vec3 z{1.f,2.f,3.f};
     Bar something;
     Foo1(){}
-    virtual void print() override {z.x += 3;}
+    virtual void print() override;
     void test(){cout << x << y;}
 };
 
@@ -60,7 +63,7 @@ struct Stripped
 
 float doTheStackWork(const int arraySize)
 {
-    Foo1 mArray1[arraySize];
+    Foo1 mArray1[LENGHT];
 
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -78,7 +81,7 @@ float doTheStackWork(const int arraySize)
 
 float doTheHeapWork(const int arraySize)
 {
-    Foo1 *mArrayPtr = new Foo1[arraySize];
+    Foo1 *mArrayPtr = new Foo1[LENGHT];
 
     auto start = std::chrono::high_resolution_clock::now();
     for(int i{0}; i <  arraySize; i++)
@@ -169,9 +172,8 @@ float doTheListWork(const unsigned int arraySize)
     return duration.count();
 }
 
-int main()
+void IterateArrays()
 {
-    cout << "Hello Performance!" << endl;
     const unsigned int mArraySize{LENGHT}; //manually put this into the doTheArrayWork() function!
     int rounds{ROUNDS};
 
@@ -304,6 +306,19 @@ int main()
 
     delete[] mArrayPtr;
     delete[] fastArray;
+}
 
+int main()
+{
+    cout << "Hello Performance!" << endl;
+//    IterateArrays();
+    modernPointers();
     return 0;
 }
+
+Parent::~Parent()
+{
+
+}
+
+void Foo1::print() {z.x += 3;}
