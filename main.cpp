@@ -195,13 +195,13 @@ void IterateArrays()
     //    for (int i{0}; i < rounds; i++) {
     //        timeTotalStack += doTheStackWork(mArraySize);
     //    }
-    //    cout << "Stack " << timeTotalStack / rounds * 100 << " ms" << endl;
+    //    cout << "Stack " << timeTotalStack / rounds * 1000 << " ms" << endl;
 
     //All objects on heap
     for (int i{0}; i < rounds; i++) {
         timeTotalHeap += doTheHeapWork(mArraySize);
     }
-    cout << "Array on Heap " << timeTotalHeap / rounds * 100 << " ms" << endl;
+    cout << "Array on Heap " << timeTotalHeap / rounds * 1000 << " ms" << endl;
 
     //    cout << "Stack / Heap: " << timeTotalStack/timeTotalHeap << endl;
     //    cout << "Heap is " << timeTotalHeap/timeTotalStack << " slower than stack" << endl;
@@ -212,7 +212,7 @@ void IterateArrays()
     for (int i{0}; i < rounds; i++) {
         timeTotalVector += doTheVectorWork(mArraySize);
     }
-    cout << "vector " << timeTotalVector / rounds  * 100<< " ms" << endl;
+    cout << "vector " << timeTotalVector / rounds  * 1000 << " ms" << endl;
     cout << "Array on Heap / vector: " << timeTotalHeap/timeTotalVector << endl;
     cout << "vector is " << timeTotalVector/timeTotalHeap << " slower than Array on Heap" << endl;
     cout << endl;
@@ -221,7 +221,7 @@ void IterateArrays()
     //    for (int i{0}; i < rounds; i++) {
     //        timeTotalArray += doTheArrayWork(mArraySize);
     //    }
-    //    cout << "std::array " << timeTotalArray / rounds  * 100<< " ms" << endl;
+    //    cout << "std::array " << timeTotalArray / rounds  * 1000 << " ms" << endl;
     //    cout << "Array on Heap / std::array: " << timeTotalHeap/timeTotalArray << endl;
     //    cout << "std::array is " << timeTotalArray/timeTotalHeap << " slower than Array on Heap" << endl;
     //    cout << endl;
@@ -230,7 +230,7 @@ void IterateArrays()
     //    for (int i{0}; i < rounds; i++) {
     //        timeTotalDynamicVector += doTheDynamicVectorWork(mArraySize);
     //    }
-    //    cout << "Dynamic vector " << timeTotalDynamicVector / rounds  * 100<< " ms" << endl;
+    //    cout << "Dynamic vector " << timeTotalDynamicVector / rounds  * 1000 << " ms" << endl;
     //    cout << "Array on Heap / Dynamic vector: " << timeTotalHeap/timeTotalDynamicVector << endl;
     //    cout << "Dynamic vector is " << timeTotalDynamicVector/timeTotalHeap << " slower than Array on Heap" << endl;
     //    cout << endl;
@@ -239,7 +239,7 @@ void IterateArrays()
     //    for (int i{0}; i < rounds; i++) {
     //        timeTotalList += doTheListWork(mArraySize);
     //    }
-    //    cout << "list " << timeTotalList / rounds  * 100<< " ms" << endl;
+    //    cout << "list " << timeTotalList / rounds  * 1000 << " ms" << endl;
     //    cout << "Array on Heap / list: " << timeTotalHeap/timeTotalList << endl;
     //    cout << "list is " << timeTotalList/timeTotalHeap << " slower than Array on Heap" << endl;
     //    cout << endl;
@@ -286,7 +286,7 @@ void IterateArrays()
         mStrippedCounter = 0;
     }
 
-    cout << "Iterate the original array and copy " << timeAddedCopy / rounds * 100 << " ms" << endl;
+    cout << "Iterate the original array and copy " << timeAddedCopy / rounds * 1000 << " ms" << endl;
     cout << "Added copy is " << timeAddedCopy/timeTotalHeap << " slower than just iterating" << endl;
 
     auto start2 = std::chrono::high_resolution_clock::now();
@@ -302,7 +302,7 @@ void IterateArrays()
     auto end2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration2 = end2 - start2;
 
-    cout << "Iterate the Stripped array with add " << duration2.count()*100 / rounds << " ms" << endl;
+    cout << "Iterate the Stripped array with add " << duration2.count()*1000 / rounds << " ms" << endl;
 
     delete[] mArrayPtr;
     delete[] fastArray;
@@ -311,7 +311,9 @@ void IterateArrays()
 int main()
 {
     cout << "Hello Performance!" << endl;
-//    IterateArrays();
+    cout << "\n *************** Array test: *************** " << endl;
+    IterateArrays();
+    cout << "\n *************** Pointer test: ***************  " << endl;
     modernPointers();
     return 0;
 }
