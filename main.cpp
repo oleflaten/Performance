@@ -245,11 +245,14 @@ void IterateArrays()
     //    cout << endl;
 
 
+    /******************************************************
     //testing copying the relevant data to a separate array
+    ******************************************************/
 
     //trying to use massive amount of memory to flush it:
     Foo1 *tempArray = new Foo1[LENGHT*5];
-    tempArray[100].x = 100;
+    tempArray[100].x = 100;     //using data so it is not optimized out
+    cout << "Flushing " << tempArray[3].x << endl;;
     delete[] tempArray;
 
     Foo1 *mArrayPtr = new Foo1[mArraySize];
