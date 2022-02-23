@@ -98,8 +98,8 @@ float doTheHeapWork(const int arraySize)
 
 float doTheVectorWork(const unsigned int arraySize)
 {
-    std::vector<Foo1> mArray1;
-    mArray1.reserve(arraySize);
+    std::vector<Foo1> mArray1(arraySize);
+    //    mArray1.reserve(arraySize);
     //    mArray1.resize(arraySize);
 
     auto start = std::chrono::high_resolution_clock::now();
